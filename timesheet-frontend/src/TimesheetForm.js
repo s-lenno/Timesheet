@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const TimesheetForm = () => {
   const [formData, setFormData] = useState({
@@ -6,13 +7,18 @@ const TimesheetForm = () => {
   });
 
   const handleChange = (e) => {
-    // Update form data on input change
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Implement logic to send data to the backend (will be added later)
+
+    axios.post('http://localhost:5000/timesheet/add', formData)
+      .then((res) => {
+        console.log(res.data);
+        // Optionally, you can redirect or perform other actions after submission
+      })
+      .catch((err) => console.error(`Error: ${err}`));
   };
 
   return (
