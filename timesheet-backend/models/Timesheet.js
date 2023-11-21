@@ -1,7 +1,18 @@
 const mongoose = require('mongoose');
 
 const timesheetSchema = new mongoose.Schema({
-  // Define the schema for your timesheet entry (e.g., date, hours, project, etc.)
+  date: {
+    type: Date,
+    required: true,
+  },
+  hours: {
+    type: Number,
+    required: true,
+  },
+  project: {
+    type: String,
+    required: true,
+  },
 });
 
 const Timesheet = mongoose.model('Timesheet', timesheetSchema);
