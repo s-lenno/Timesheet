@@ -3,13 +3,44 @@ const router = express.Router();
 const Timesheet = require('../models/Timesheet');
 
 router.post('/add', (req, res) => {
+  console.log('Received request for add timesheet:', req.body);
+
   const { date, hours, project } = req.body;
 
+  // Validate date format (assuming it should be in YYYY-MM-DD format)
+  if (!isValidDateFormat(date)) {
+    return res.status(400).json({ error: 'Invalid date format' });
+  }
+
   const newTimesheet = new Timesheet({
-    date,
-    hours,
-    project,
+    date: new Date(date),
+    hours: hours,
+    project: project,
   });
+
+  newTimesheet.save()
+    .then((savedTimesheet) => {
+      console.log('New timesheet entry added:', savedTimesheet);
+      res.json(savedTimesheet);
+    })
+    .catch((err) => {
+      console.error('Error adding timesheet entry:', err);
+      res.status(400).json(`Error: ${err}`);
+    });
+});
+
+function isValidDateFormat(date) {
+  // Implement logic to validate the date format (e.g., regex or date parsing)
+  // Return true if the date is in the expected format, otherwise false
+  return /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(date);
+}
+
+const newTimesheet = new Timesheet({
+  date: new Date(req.body.date),
+  hours: req.body.hours,
+  project: req.body.project,
+});
+
 
   newTimesheet.save()
     .then((savedTimesheet) => {
@@ -24,9 +55,9 @@ router.post('/add', (req, res) => {
 
 router.post('/addSample', (req, res) => {
   const receivedData = req.body;
-  console.log('Received Data:', receivedData);
+  console.log('Received Data:', receivedData);  
   const sampleTimesheet = new Timesheet({
-    date: '2023-01-01',
+    date: '2023-02-01',
     hours: 8,
     project: 'Sample Project',
   });
@@ -35,6 +66,7 @@ router.post('/addSample', (req, res) => {
     .then(() => res.json('Sample timesheet added!'))
     .catch((err) => res.status(400).json(`Error: ${err}`));
 });
+
 
 router.delete('/:id', (req, res) => {
   const id = req.params.id;
