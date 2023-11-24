@@ -20,7 +20,6 @@ const TimesheetForm = () => {
     axios.post('http://localhost:5000/timesheet/addSample', formData)
       .then((res) => {
         console.log(res.data);
-        // Optionally, you can redirect or perform other actions after submission
       })
       .catch((err) => {
         console.error(`Error submitting form: ${err}`);

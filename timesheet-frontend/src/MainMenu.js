@@ -17,7 +17,6 @@ const MainMenu = () => {
           </li>
         </ul>
       </nav>
-      {/* Add routes for TimesheetForm and TimesheetList */}
       <Switch>
         <Route path="/main/form" component={TimesheetForm} />
         <Route path="/main/list" component={TimesheetList} />

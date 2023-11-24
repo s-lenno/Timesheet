@@ -7,7 +7,6 @@ router.post('/add', (req, res) => {
 
   const { date, hours, project } = req.body;
 
-  // Validate date format (assuming it should be in YYYY-MM-DD format)
   if (!isValidDateFormat(date)) {
     return res.status(400).json({ error: 'Invalid date format' });
   }
@@ -30,8 +29,7 @@ router.post('/add', (req, res) => {
 });
 
 function isValidDateFormat(date) {
-  // Implement logic to validate the date format (e.g., regex or date parsing)
-  // Return true if the date is in the expected format, otherwise false
+
   return /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(date);
 }
 
@@ -45,7 +43,7 @@ const newTimesheet = new Timesheet({
   newTimesheet.save()
     .then((savedTimesheet) => {
       console.log('New timesheet entry added:', savedTimesheet);
-      res.json(savedTimesheet); // Send the saved timesheet entry as a response
+      res.json(savedTimesheet);
     })
     .catch((err) => {
       console.error('Error adding timesheet entry:', err);

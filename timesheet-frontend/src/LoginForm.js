@@ -9,16 +9,12 @@ const LoginForm = ({ onLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Perform authentication logic (replace with your actual authentication code)
     try {
-      // Assuming onLogin is a function that handles authentication
       await onLogin(username, password);
 
-      // Redirect to the main menu upon successful login
       history.push('/main');
     } catch (error) {
       console.error('Login failed:', error);
-      // Handle login failure (e.g., show error message)
     }
   };
 
