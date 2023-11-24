@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import axios from 'axios';
 import TimesheetForm from './TimesheetForm';
 import TimesheetList from './TimesheetList';
+import LoginForm from './LoginForm'; 
+import MainMenu from './MainMenu';
+
 
 function App() {
   const [timesheets, setTimesheets] = useState([]);
@@ -14,6 +17,17 @@ function App() {
       .catch((error) => console.error(`Error fetching timesheets: ${error}`));
   }, []);
 
+  const App = () => {
+    return (
+      <Router>
+        <Switch>
+          <Route path="/login" component={LoginForm} />
+          <Route path="/main" component={MainMenu} />
+          <Redirect from="/" to="/login" />
+        </Switch>
+      </Router>
+    );
+  };
   const handleDelete = (id) => {
     // Delete timesheet entry
     axios.delete(`http://localhost:5000/timesheet/${id}`)
